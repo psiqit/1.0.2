@@ -1,0 +1,232 @@
+
+# PSIQIT - Quantum Information Toolkit
+
+<div align="center">
+  <img src="docs/assets/logo.png" alt="PSIQIT Logo" width="200"/>
+  <br><br>
+</div>
+
+**PSIQIT** (Quantum Information Toolkit) is a comprehensive Python library for quantum computing, quantum information theory, and quantum mechanics simulations. It provides a complete set of tools for research, education, and development in quantum technologies.
+
+[![Python Version](https://img.shields.io/badge/python-3.9+-blue.svg)](https://python.org)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/psiqit/psiqit/blob/main/LICENSE)
+[![PyPI version](https://badge.fury.io/py/psiqit.svg)](https://badge.fury.io/py/psiqit)
+[![Documentation](https://img.shields.io/badge/docs-mkdocs-blue.svg)](https://psiqit.github.io)
+[![Tests](https://github.com/psiqit/psiqit/actions/workflows/tests.yml/badge.svg)](https://github.com/psiqit/psiqit/actions)
+
+---
+
+## ✨ Features
+
+| Category | Description |
+|----------|-------------|
+| 🔢 **Mathematics** | Linear algebra, calculus, ODE/PDE solvers, symbolic math |
+| ⚛️ **Quantum States** | Ket/Bra, Bell states, GHZ, W, coherent, squeezed, Fock states |
+| 🚪 **Quantum Gates** | Pauli, Hadamard, rotations, CNOT, Toffoli, Fredkin |
+| 🔌 **Quantum Circuits** | Circuit builder, simulation, visualization |
+| 📊 **Measurements** | POVM, projective measurements, tomography |
+| 🧠 **Algorithms** | Grover, Shor, Deutsch-Jozsa, QFT, QPE, Simon |
+| 📈 **Variational Methods** | VQE, QAOA, SSVQE, ADAPT-VQE, TDVP |
+| 🔗 **Entanglement** | Concurrence, negativity, Schmidt decomposition |
+| 🌊 **Open Systems** | Lindblad equation, quantum trajectories, Monte Carlo |
+| 🛡️ **Error Correction** | Bit flip, phase flip, Shor code, Steane code |
+| 🤖 **Quantum ML** | QSVM, QNN, VQC, QGAN, quantum kernels |
+| 📊 **Visualization** | Bloch sphere, Wigner function, circuit drawing |
+
+---
+
+## 📦 Installation
+
+### Basic Installation
+
+```bash
+pip install psiqit
+```
+
+### With Optional Dependencies
+
+```bash
+# For visualization
+pip install psiqit[viz]
+
+# For machine learning
+pip install psiqit[ml]
+
+# For symbolic mathematics
+pip install psiqit[symbolic]
+
+# Install all features
+pip install psiqit[full]
+```
+
+### From Source
+
+```bash
+git clone https://github.com/psiqit/psiqit.git
+cd psiqit
+pip install -e .
+```
+
+---
+
+## 🚀 Quick Start
+
+### Quantum Circuit
+
+```python
+from psiqit.circuits.circuit import QuantumCircuit
+
+# Create Bell state
+circ = QuantumCircuit(2)
+circ.h(0)
+circ.cx(0, 1)
+
+# Run simulation
+state = circ.run()
+print(state)  # 0.707|00⟩ + 0.707|11⟩
+
+# Measure
+results = circ.measure(shots=1024)
+print(results['counts'])  # {'00': 512, '11': 512}
+```
+
+### VQE (Variational Quantum Eigensolver)
+
+```python
+from psiqit.variational import VQE
+
+# Hamiltonian for 2-qubit system
+hamiltonian = {'Z0Z1': 1.0, 'X0': 0.5, 'X1': 0.5}
+
+vqe = VQE(n_qubits=2, hamiltonian=hamiltonian)
+result = vqe.run(n_iterations=100)
+
+print(f"Ground state energy: {result.optimal_energy:.6f}")
+```
+
+### Grover's Search
+
+```python
+from psiqit.algorithms.grover import grover_search
+
+# Search for |101⟩ in 3-qubit system
+result = grover_search(n_qubits=3, target=5, shots=1024)
+
+print(f"Found: {result.most_likely}")  # 5
+```
+
+### Bloch Sphere Visualization
+
+```python
+from psiqit.visualization import bloch_sphere
+from psiqit.quantum.state import plus
+
+bloch_sphere(plus(), title="|+⟩ State")
+```
+
+---
+
+## 📚 Documentation
+
+Full documentation is available at: [https://psiqit.github.io](https://psiqit.github.io)
+
+| Section | Description |
+|---------|-------------|
+| [Getting Started](https://psiqit.github.io/getting_started/installation/) | Installation and quick start |
+| [User Guide](https://psiqit.github.io/user_guide/) | In-depth tutorials |
+| [API Reference](https://psiqit.github.io/api/) | Complete API documentation |
+| [Examples](https://psiqit.github.io/examples/) | Code examples |
+| [Tutorials](https://psiqit.github.io/tutorials/) | Jupyter notebooks |
+
+---
+
+## 📁 Project Structure
+
+```
+psiqit/
+├── algorithms/       # Quantum algorithms (Grover, Shor, QFT, ...)
+├── circuits/         # Quantum circuits and simulation
+├── dynamics/         # Quantum dynamics (Lindblad, Schrödinger)
+├── error_correction/ # Error correction codes
+├── info/             # Information theory (entropy, entanglement)
+├── interface/        # CLI, LaTeX, Jupyter tools
+├── lab/              # Virtual quantum laboratory
+├── math/             # Mathematical toolkit
+├── noise_canceling/  # Noise models and mitigation
+├── qml/              # Quantum machine learning
+├── quantum/          # Quantum foundations (states, operators)
+├── utils/            # Utilities
+├── variational/      # Variational methods (VQE, QAOA)
+└── visualization/    # Visualization tools
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please see our [Contributing Guide](https://github.com/psiqit/psiqit/blob/main/CONTRIBUTING.md).
+
+### Development Setup
+
+```bash
+git clone https://github.com/psiqit/psiqit.git
+cd psiqit
+pip install -e .[dev]
+pytest tests/
+```
+
+---
+
+## 📄 License
+
+PSIQIT is released under the [MIT License](https://github.com/psiqit/psiqit/blob/main/LICENSE).
+
+Copyright (c) 2025-2026 Mahdi Azadmarzabadi and PSIQIT Contributors
+
+---
+
+## 📧 Contact
+
+- **Author:** Mahdi Azadmarzabadi
+- **Maintainer:** PSIQIT Developer Team
+- **Email:** psiqitofficial@protonmail.com
+- **GitHub:** [https://github.com/psiqit/psiqit](https://github.com/psiqit/psiqit)
+
+---
+
+## 🌟 Citation
+
+If you use PSIQIT in your research, please cite:
+
+```bibtex
+@software{psiqit2025,
+  title = {PSIQIT: Quantum Information Toolkit},
+  author = {Azadmarzabadi, Mahdi and PSIQIT Contributors},
+  year = {2025},
+  url = {https://github.com/psiqit/psiqit},
+  version = {1.0.2}
+}
+```
+
+---
+
+## 🙏 Acknowledgments
+
+PSIQIT builds upon the rich ecosystem of Python scientific computing:
+
+- [NumPy](https://numpy.org/) - Numerical computing
+- [SciPy](https://scipy.org/) - Scientific computing
+- [Matplotlib](https://matplotlib.org/) - Visualization
+- [SymPy](https://www.sympy.org/) - Symbolic mathematics
+
+---
+
+## ⭐ Star Us
+
+If you find PSIQIT useful, please consider giving us a star on GitHub!
+
+[![GitHub stars](https://img.shields.io/github/stars/psiqit/psiqit?style=social)](https://github.com/psiqit/psiqit)
+
+---
+
+**Happy Quantum Computing!** 🚀

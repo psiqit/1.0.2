@@ -1,0 +1,103 @@
+dynamics/
+│
+├── __init__.py
+│   └── exports: WaveFunction, solve_time_independent, solve_time_dependent,
+│                time_evolution_operator, propagate_state, expectation_value,
+│                uncertainty_relation, gaussian_wavepacket, plane_wave,
+│                square_well_ground_state, harmonic_oscillator_state
+│
+├── schrodinger.py
+│   │
+│   ├── class WaveFunction
+│   │   ├── __init__(x, psi, t=0.0)
+│   │   ├── probability_density() -> np.ndarray
+│   │   ├── normalize() -> WaveFunction
+│   │   ├── expectation_x() -> float
+│   │   ├── expectation_p(hbar=1.0) -> float
+│   │   ├── uncertainty_x() -> float
+│   │   ├── uncertainty_p(hbar=1.0) -> float
+│   │   └── __repr__()
+│   │
+│   ├── solve_time_independent(potential, x_range, n_points=1000, n_states=5, mass=1.0, hbar=1.0) -> Tuple[np.ndarray, List[np.ndarray]]
+│   ├── solve_time_dependent(psi0, x, potential, t_max, dt, mass=1.0, hbar=1.0, method='split') -> List[WaveFunction]
+│   ├── time_evolution_operator(H, t, hbar=1.0) -> np.ndarray
+│   ├── propagate_state(psi0, H, t, hbar=1.0) -> np.ndarray
+│   ├── expectation_value(psi, operator) -> complex
+│   ├── uncertainty_relation(psi, x_operator, p_operator, hbar=1.0) -> Tuple[float, float, float]
+│   ├── gaussian_wavepacket(x, x0=0.0, sigma=1.0, k0=0.0) -> np.ndarray
+│   ├── plane_wave(x, k) -> np.ndarray
+│   ├── square_well_ground_state(x, L) -> np.ndarray
+│   └── harmonic_oscillator_state(x, n, mass=1.0, omega=1.0, hbar=1.0) -> np.ndarray
+│
+├── adiabatic.py
+│   │
+│   ├── class AdiabaticResult
+│   │   └── fields: times, states, energies, fidelities, success
+│   │
+│   ├── class AdiabaticEvolution
+│   │   ├── __init__(H_initial, H_final, T, n_steps=100)
+│   │   └── evolve(psi0) -> AdiabaticResult
+│   │
+│   └── class QuantumAnnealing(AdiabaticEvolution)
+│       └── __init__(problem_hamiltonian, T, transverse_field=1.0, n_steps=100)
+│
+├── heisenberg.py
+│   │
+│   ├── class HeisenbergResult
+│   │   └── fields: times, operators, success
+│   │
+│   ├── class HeisenbergEvolution
+│   │   ├── __init__(hamiltonian)
+│   │   └── evolve_operator(A, t, method='series', order=5) -> Operator
+│   │
+│   └── class HeisenbergEquation
+│       ├── __init__(hamiltonian)
+│       └── equation_of_motion(A) -> Operator
+│
+├── interaction.py
+│   │
+│   ├── class InteractionResult
+│   │   └── fields: times, states, success
+│   │
+│   └── class InteractionPicture
+│       ├── __init__(H0, V)
+│       ├── interaction_operator(t) -> Operator
+│       ├── evolve_state(psi0, t, dt=0.01) -> Ket
+│       └── evolve_operator(A, t) -> Operator
+│
+├── lindblad.py
+│   │
+│   ├── class LindbladResult
+│   │   └── fields: times, states, populations, success
+│   │
+│   └── class LindbladSolver
+│       ├── __init__(hamiltonian, collapse_ops, gamma=None)
+│       ├── evolve(rho0, t_max, dt=0.01, method='euler') -> LindbladResult
+│       └── steady_state(tol=1e-10, max_iter=1000) -> np.ndarray
+│
+├── monte_carlo.py
+│   │
+│   ├── class MonteCarloResult
+│   │   └── fields: times, avg_states, jump_times, n_jumps, success
+│   │
+│   └── class QuantumTrajectory
+│       ├── __init__(hamiltonian, collapse_ops, gamma=None)
+│       ├── single_trajectory(psi0, t_max, dt=0.01) -> dict
+│       └── run(psi0, t_max, dt=0.01, n_trajectories=100) -> MonteCarloResult
+│
+└── time_evolution.py
+    │
+    ├── class EvolutionResult
+    │   └── fields: times, states, fidelities, success
+    │
+    ├── class TrotterEvolution
+    │   ├── __init__(hamiltonian, n_steps=100, decomposition='first')
+    │   └── evolve(psi0, t) -> Ket
+    │
+    ├── class ChebyshevEvolution
+    │   ├── __init__(hamiltonian, order=50)
+    │   └── evolve(psi0, t) -> Ket
+    │
+    └── class KrylovEvolution
+        ├── __init__(hamiltonian, krylov_dim=20)
+        └── evolve(psi0, t) -> Ket

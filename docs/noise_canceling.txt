@@ -1,0 +1,32 @@
+noise_canceling/
+│
+├── __init__.py
+│   └── exports: NoiseResult, bit_flip_channel, phase_flip_channel,
+│                bit_phase_flip_channel, depolarizing_channel,
+│                amplitude_damping_channel, phase_damping_channel,
+│                zero_noise_extrapolation, probabilistic_error_cancellation
+│
+└── noise_models.py
+    │
+    ├── class NoiseResult
+    │   └── fields: state, fidelity, purity, entropy, noise_amplitude, success_rate
+    │
+    ├── توابع کمکی داخلی:
+    │   ├── _to_density_matrix(state)
+    │   ├── _compute_fidelity(rho_ideal, rho_noisy) -> float
+    │   ├── _compute_purity(rho) -> float
+    │   └── _compute_entropy(rho, base='e') -> float
+    │
+    ├── کانال‌های نویز پاولی (تک کیوبیت):
+    │   ├── bit_flip_channel(state, p) -> NoiseResult
+    │   ├── phase_flip_channel(state, p) -> NoiseResult
+    │   ├── bit_phase_flip_channel(state, p) -> NoiseResult
+    │   └── depolarizing_channel(state, p) -> NoiseResult
+    │
+    ├── کانال‌های اتلاف و دفازینگ:
+    │   ├── amplitude_damping_channel(state, gamma) -> NoiseResult
+    │   └── phase_damping_channel(state, gamma) -> NoiseResult
+    │
+    └── تکنیک‌های حذف نویز:
+        ├── zero_noise_extrapolation(results: List[NoiseResult]) -> float
+        └── probabilistic_error_cancellation(noise_result, error_rate, mitigation_strength=1.0) -> NoiseResult

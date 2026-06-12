@@ -1,0 +1,103 @@
+utils/
+│
+├── __init__.py
+│   └── exports: (همه توابع از conversion, polarization, random, validation)
+│
+├── conversion.py
+│   │
+│   ├── class ConversionResult
+│   │   └── fields: success, result, message, details
+│   │
+│   ├── تبدیلات Ket ↔ Density Matrix:
+│   │   ├── ket_to_density(state) -> List[List[complex]]
+│   │   ├── density_to_ket(rho, tol=1e-10) -> ConversionResult
+│   │   └── is_pure_state(rho, tol=1e-10) -> bool
+│   │
+│   ├── تبدیلات پایه:
+│   │   ├── change_basis(state, basis) -> List[complex]
+│   │   ├── to_computational_basis(state) -> List[complex]
+│   │   ├── to_pauli_basis(matrix) -> Dict[str, float]
+│   │   └── from_pauli_basis(coeffs) -> List[List[complex]]
+│   │
+│   ├── تبدیلات ماتریسی:
+│   │   ├── to_list(matrix), to_operator(matrix, name), to_numpy(matrix)
+│   │   └── to_ket(amplitudes), to_bra(amplitudes), to_matrix(data)
+│   │
+│   ├── تبدیلات کره بلوخ:
+│   │   ├── to_bloch_coordinates(state) -> Tuple[float, float, float]
+│   │   └── from_bloch_coordinates(x, y, z) -> Ket
+│   │
+│   └── vector_to_matrix(vec), matrix_to_vector(mat)
+│
+├── polarization.py
+│   │
+│   ├── جونز وکتورها (حالت‌های قطبش):
+│   │   ├── horizontal(), vertical()
+│   │   ├── diagonal(angle), anti_diagonal()
+│   │   ├── circular_right(), circular_left()
+│   │   └── elliptical(a, b, delta)
+│   │
+│   ├── جونز ماتریس‌ها (عناصر اپتیکی):
+│   │   ├── polarizer(angle), waveplate(retardance, angle)
+│   │   ├── quarter_waveplate(angle), half_waveplate(angle), full_waveplate(angle)
+│   │   ├── rotator(angle), linear_retarder(delta, angle)
+│   │   └── circular_dichroism(theta)
+│   │
+│   ├── تحلیل قطبش:
+│   │   ├── stokes_parameters(jones) -> Tuple[float, float, float, float]
+│   │   ├── degree_of_polarization(jones) -> float
+│   │   ├── polarization_angle(jones) -> float
+│   │   └── ellipticity(jones) -> float
+│   │
+│   ├── کره پوانکاره:
+│   │   ├── to_poincare(jones) -> Tuple[float, float, float]
+│   │   └── from_poincare(x, y, z) -> List[List[complex]]
+│   │
+│   └── عملیات:
+│       ├── apply_jones(matrix, jones), cascade_jones(matrices)
+│       └── is_unitary_jones(matrix, tol=1e-10) -> bool
+│
+├── random.py
+│   │
+│   ├── class RandomResult
+│   │   └── fields: result, seed, type, dimension
+│   │
+│   ├── تولید حالت تصادفی:
+│   │   ├── random_state(dim, seed=None) -> Ket
+│   │   ├── random_qubit_state(seed=None) -> Ket
+│   │   └── random_n_qubit_state(n_qubits, seed=None) -> Ket
+│   │
+│   ├── تولید ماتریس چگالی تصادفی:
+│   │   ├── random_density_matrix(dim, rank=None, seed=None) -> List[List[complex]]
+│   │   └── random_qubit_density_matrix(seed=None) -> List[List[complex]]
+│   │
+│   ├── تولید عملگر تصادفی:
+│   │   ├── random_unitary(dim, seed=None) -> List[List[complex]]
+│   │   ├── random_hermitian(dim, seed=None) -> List[List[complex]]
+│   │   └── random_positive_operator(dim, seed=None) -> List[List[complex]]
+│   │
+│   ├── تولید تصادفی پاولی:
+│   │   ├── random_pauli_rotation(seed=None) -> Tuple[str, float]
+│   │   └── random_pauli_string(n_qubits, seed=None) -> str
+│   │
+│   └── set_random_seed(seed)
+│
+└── validation.py
+    │
+    ├── class ValidationResult
+    │   └── fields: is_valid, message, details
+    │
+    ├── اعتبارسنجی ماتریس:
+    │   ├── is_unitary(matrix, tol=1e-10) -> ValidationResult
+    │   ├── is_hermitian(matrix, tol=1e-10) -> ValidationResult
+    │   ├── is_positive_semidefinite(matrix, tol=1e-10) -> ValidationResult
+    │   └── is_density_matrix(matrix, tol=1e-10) -> ValidationResult
+    │
+    ├── اعتبارسنجی حالت:
+    │   ├── is_normalized(state, tol=1e-10) -> ValidationResult
+    │   ├── are_orthogonal(state1, state2, tol=1e-10) -> ValidationResult
+    │   ├── are_identical(state1, state2, ignore_phase=True, tol=1e-10) -> ValidationResult
+    │   └── fidelity(state1, state2) -> float
+    │
+    └── اعتبارسنجی مدار:
+        └── validate_circuit(circuit) -> ValidationResult

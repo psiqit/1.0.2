@@ -1,0 +1,32 @@
+info/
+│
+├── __init__.py
+│   └── exports: shannon_entropy, von_neumann_entropy, renyi_entropy,
+│                collision_entropy, mutual_information, partial_trace,
+│                relative_entropy, purity
+│
+├── entropy.py
+│   │
+│   ├── shannon_entropy(probabilities, base='e') -> float
+│   ├── von_neumann_entropy(rho, base='e') -> float
+│   ├── renyi_entropy(rho, alpha=2, base='e') -> float
+│   ├── collision_entropy(rho, base='e') -> float
+│   ├── partial_trace(matrix, dims, keep) -> List[List[complex]]
+│   ├── mutual_information(rho_ab, dim_a, dim_b, base='e') -> float
+│   ├── relative_entropy(rho, sigma) -> float
+│   └── purity(rho) -> float
+│
+└── entanglement.py
+    │
+    ├── class EntanglementResult
+    │   └── fields: value, measure, is_entangled, details
+    │
+    ├── concurrence_pure(state, dims=None) -> float
+    ├── concurrence_mixed(rho, dims=None) -> float
+    ├── concurrence(state_or_rho, dims=None) -> float
+    ├── negativity(state_or_rho, dims=None) -> float
+    ├── logarithmic_negativity(state_or_rho, dims=None) -> float
+    ├── entanglement_entropy(rho, dims) -> float
+    ├── schmidt_decomposition(state, dims) -> dict
+    ├── schmidt_rank(state, dims, tol=1e-10) -> int
+    └── is_entangled(state_or_rho, dims=None, tol=1e-10) -> bool

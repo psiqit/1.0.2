@@ -1,0 +1,35 @@
+interface/
+│
+├── __init__.py
+│   └── exports: cli_main, parse_gates, run_circuit, run_algorithm,
+│                matrix_to_latex, state_to_latex, circuit_to_latex,
+│                equation_to_latex, table_to_latex, generate_report,
+│                init_notebook, display_circuit, display_state,
+│                display_histogram, display_bloch, display_matrix,
+│                display_notebook_version
+│
+├── cli.py
+│   │
+│   ├── parse_gates(gates_str) -> List[tuple]
+│   ├── run_circuit(args)
+│   ├── run_algorithm(args)
+│   └── main()
+│
+├── latex.py
+│   │
+│   ├── matrix_to_latex(matrix, name="", precision=4, as_array=False) -> str
+│   ├── state_to_latex(state, name="\\psi", precision=4) -> str
+│   ├── circuit_to_latex(circuit, style='quantikz', wire_labels=None) -> str
+│   ├── equation_to_latex(expr, name="", align=False) -> str
+│   ├── table_to_latex(data, headers=None, caption="", label="") -> str
+│   └── generate_report(results, title="Quantum Report") -> str
+│
+└── notebook.py
+    │
+    ├── init_notebook()
+    ├── display_circuit(circuit, style='text')
+    ├── display_state(state, title="Quantum State")
+    ├── display_histogram(counts, title="Measurement Results")
+    ├── display_bloch(state, title="Bloch Sphere")
+    ├── display_matrix(matrix, title="Matrix", cmap='RdBu')
+    └── display_notebook_version()

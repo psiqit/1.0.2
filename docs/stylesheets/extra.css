@@ -1,0 +1,25 @@
+/* docs/stylesheets/extra.css */
+.md-typeset .admonition,
+.md-typeset details {
+    font-size: 0.8rem;
+}
+
+.md-typeset code {
+    font-size: 0.8em;
+}
+
+.md-typeset pre > code {
+    font-size: 0.7em;
+}
+
+.md-grid {
+    max-width: 1440px;
+}
+
+.md-header__title {
+    font-size: 1.2rem;
+}
+
+.md-tabs__link {
+    font-size: 0.8rem;
+}

@@ -1,0 +1,80 @@
+site_name: PSIQIT - Quantum Information Toolkit
+site_description: Comprehensive Python library for quantum computing
+site_author: PSIQIT Contributors
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - admonition
+  - codehilite
+  - toc:
+      permalink: true
+  - tables
+  - footnotes
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: getting_started/installation.md
+    - Quick Start: getting_started/quick_start.md
+    - Requirements: getting_started/requirements.md
+  - User Guide:
+    - Quantum States: user_guide/quantum_states.md
+  - API Reference:
+    - Algorithms: api/algorithms.md
+    - Circuits: api/circuits.md
+    - Dynamics: api/dynamics.md
+    - Error Correction: api/error_correction.md     
+    - Information Theory: api/info.md
+    - Interface: api/interface.md                   
+    - Virtual Lab: api/lab.md                      
+    - Mathematics: api/math.md
+    - Noise Canceling: api/noise_canceling.md        
+    - Quantum ML: api/qml.md
+    - Quantum Foundations: api/quantum.md
+    - Utilities: api/utils.md
+    - Variational Methods: api/variational.md
+    - Visualization: api/visualization.md
+  - Examples:
+    - Bell State: examples/bell_state.md
+    - Grover Search: examples/grover_search.md
+    - Shor's Algorithm: examples/shor_algorithm.md
+    - VQE: examples/vqe_example.md
+    - QAOA: examples/qaoa_example.md
+    - Quantum Teleportation: examples/quantum_teleportation.md
+    - BB84 Protocol: examples/bb84_protocol.md
+    - Bloch Sphere: examples/bloch_sphere.md
+    - Wigner Function: examples/wigner_function.md
+    - Noise Mitigation: examples/noise_mitigation.md
+    - Quantum Kernel: examples/quantum_kernel.md
+    - QNN Classification: examples/qnn_classification.md
+    - Lindblad Simulation: examples/lindblad_simulation.md
+  - Contributing: contributing.md
+  - Changelog: changelog.md
+  - License: license.md

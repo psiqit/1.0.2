@@ -1,0 +1,93 @@
+circuits/
+│
+├── __init__.py
+│   └── exports: Qubit, QuantumRegister, QuantumCircuit
+│
+├── qubit.py
+│   └── class Qubit
+│       ├── __init__(index, initial_state=None)
+│       ├── index (property)
+│       ├── state (property)
+│       ├── state.setter (setter)
+│       ├── is_measured (property)
+│       ├── value (property)
+│       ├── measure() -> int
+│       ├── reset()
+│       ├── __repr__()
+│       └── __str__()
+│
+├── register.py
+│   └── class QuantumRegister
+│       ├── __init__(n_qubits, initial_states=None)
+│       ├── n_qubits (property)
+│       ├── dim (property)
+│       ├── get_state_vector() -> Ket
+│       ├── set_state_vector(state)
+│       ├── get_qubit(index) -> Qubit
+│       ├── measure(qubit_index=None)
+│       ├── reset()
+│       ├── __getitem__(index)
+│       ├── __len__()
+│       ├── __repr__()
+│       └── __str__()
+│
+├── circuit.py
+│   └── class QuantumCircuit
+│       ├── __init__(n_qubits)
+│       ├── n_qubits (property)
+│       ├── depth (property)
+│       │
+│       ├── گیت‌ها:
+│       │   ├── x(qubit)
+│       │   ├── y(qubit)
+│       │   ├── z(qubit)
+│       │   ├── h(qubit)
+│       │   ├── s(qubit)
+│       │   ├── t(qubit)
+│       │   ├── rx(qubit, theta)
+│       │   ├── ry(qubit, theta)
+│       │   ├── rz(qubit, theta)
+│       │   ├── cx(control, target)
+│       │   ├── cz(control, target)
+│       │   ├── swap(qubit1, qubit2)
+│       │   └── toffoli(control1, control2, target)
+│       │
+│       ├── run() -> Ket
+│       ├── measure(qubit=None, shots=1) -> int/str/dict
+│       ├── draw() -> str
+│       ├── reset()
+│       └── __repr__()
+│
+└── optical_circuits.py
+    │
+    ├── class BeamSplitter
+    │   ├── __init__(transmittance=0.5)
+    │   ├── matrix (property)
+    │   ├── apply(state) -> Ket
+    │   ├── as_gate() -> Operator
+    │   ├── as_circuit(q0, q1) -> QuantumCircuit
+    │   └── __repr__()
+    │
+    ├── class PhaseShifter
+    │   ├── __init__(phase=0.0)
+    │   ├── phase (property)
+    │   ├── matrix (property)
+    │   ├── set_phase(phase)
+    │   ├── apply(state) -> Ket
+    │   ├── as_gate() -> Operator
+    │   ├── as_circuit(qubit) -> QuantumCircuit
+    │   └── __repr__()
+    │
+    ├── class OpticalCircuit
+    │   ├── __init__(n_modes)
+    │   ├── add_beam_splitter(mode1, mode2, transmittance=0.5)
+    │   ├── add_phase_shifter(mode, phase)
+    │   ├── build_circuit() -> QuantumCircuit
+    │   ├── simulate(input_state=None) -> Ket
+    │   ├── get_matrix()
+    │   ├── clear()
+    │   ├── __len__()
+    │   └── __repr__()
+    │
+    ├── beam_splitter_circuit(q0, q1, transmittance=0.5) -> QuantumCircuit
+    └── phase_shifter_circuit(qubit, phase) -> QuantumCircuit

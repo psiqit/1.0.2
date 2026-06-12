@@ -1,0 +1,154 @@
+quantum/
+│
+├── __init__.py
+│   └── exports: (همه توابع از state, operator, measurement)
+│
+├── state.py
+│   │
+│   ├── class Ket
+│   │   ├── __init__(data, _normalized=False)
+│   │   ├── data (property), dim (property), is_normalized (property)
+│   │   ├── norm() -> float
+│   │   ├── normalize() -> Ket
+│   │   ├── inner(other) -> complex
+│   │   ├── outer(other) -> Operator
+│   │   ├── to_bra() -> Bra
+│   │   ├── measure(shots=1) -> dict
+│   │   ├── prob(basis_state) -> float
+│   │   ├── sample(shots=1) -> List[int]
+│   │   ├── copy() -> Ket
+│   │   └── __magic__: __add__, __sub__, __mul__, __getitem__, __len__, __repr__, __str__
+│   │
+│   ├── class Bra
+│   │   ├── __init__(data)
+│   │   ├── data (property), dim (property)
+│   │   ├── __matmul__(ket) -> complex
+│   │   ├── to_ket() -> Ket
+│   │   ├── copy() -> Bra
+│   │   └── __magic__: __getitem__, __len__, __repr__, __str__
+│   │
+│   ├── توابع پایه: ket(*amplitudes), basis(dim, index)
+│   │
+│   ├── حالت‌های تک کیوبیتی: zero(), one(), plus(), minus(), ip(), im()
+│   │
+│   ├── حالت‌های بل: bell_phi_plus(), bell_phi_minus(), bell_psi_plus(), bell_psi_minus(), bell_state(index)
+│   │
+│   ├── حالت‌های چند کیوبیتی: ghz(n), w_state(n)
+│   │
+│   ├── random_state(dim, seed=None) -> Ket
+│   │
+│   ├── توابع کمکی: is_orthogonal(psi, phi), is_same(psi, phi), fidelity(psi, phi)
+│   │
+│   ├── حالت‌های گسترده: fock_state(n, n_levels), coherent_state(alpha, n_levels), squeezed_state(r, phi, n_levels), thermal_state(n_bar, n_levels)
+│   │
+│   ├── حالت‌های چند طرفه: alice_bell_state(index), alice_bob_ghz(n), alice_bob_w(n), ep_pair()
+│   │
+│   └── phase_state(theta, dim=2), dual_rail_qubit()
+│
+├── operator.py
+│   │
+│   ├── class Operator
+│   │   ├── __init__(data, name="")
+│   │   ├── data (property), dim (property), name (property)
+│   │   ├── is_unitary (property), is_hermitian (property)
+│   │   ├── dagger() -> Operator
+│   │   ├── trace() -> complex
+│   │   ├── commutator(other) -> Operator
+│   │   ├── anticommutator(other) -> Operator
+│   │   ├── eigenvalues() -> List[complex]
+│   │   ├── eigenvectors() -> dict
+│   │   ├── exp() -> Operator
+│   │   ├── show(precision=3)
+│   │   └── __magic__: __matmul__, __add__, __sub__, __mul__, __pow__, __repr__, __str__
+│   │
+│   ├── گیت‌های پاولی: pauli_x(), pauli_y(), pauli_z(), identity()
+│   │
+│   ├── گیت‌های تک کیوبیتی: hadamard(), phase(theta), s_gate(), t_gate()
+│   │
+│   ├── گیت‌های چرخشی: rx(theta), ry(theta), rz(theta)
+│   │
+│   ├── گیت‌های دو کیوبیتی: cnot(), cz(), swap()
+│   │
+│   ├── گیت‌های سه کیوبیتی: toffoli(), fredkin()
+│   │
+│   └── توابع کمکی: tensor_product(A, B), expectation(operator, state)
+│
+├── measurement.py
+│   │
+│   ├── measure(state, shots=1, basis=None) -> dict
+│   ├── measure_observable(state, observable, shots=1) -> dict
+│   ├── expectation(observable, state) -> float
+│   ├── variance(observable, state) -> float
+│   ├── standard_deviation(observable, state) -> float
+│   │
+│   ├── class POVM
+│   │   ├── __init__(effects, names=None)
+│   │   ├── effects (property), names (property), n_outcomes (property)
+│   │   └── measure(state, shots=1) -> dict
+│   │
+│   ├── povm_z_basis(), povm_x_basis(), povm_y_basis() -> POVM
+│   │
+│   ├── class ProjectiveMeasurement
+│   │   ├── from_observable(observable) -> ProjectiveMeasurement
+│   │   ├── projectors (property), eigenvalues (property)
+│   │   └── measure(state, shots=1) -> dict
+│   │
+│   ├── born_rule(amplitudes) -> List[float]
+│   ├── measurement_statistics(state, shots=1000) -> dict
+│   └── state_tomography(measurement_data, n_qubits=1) -> List[List[complex]]
+│
+├── interference.py
+│   │
+│   ├── class InterferenceResult
+│   │   └── fields: x, intensity, visibility, fringe_spacing
+│   │
+│   ├── class DoubleSlit
+│   │   ├── __init__(slit_distance, slit_width, wavelength, distance_to_screen=1.0)
+│   │   ├── _single_slit_diffraction(theta) -> float
+│   │   ├── _double_slit_interference(theta) -> float
+│   │   ├── intensity(theta) -> float
+│   │   ├── pattern(x_range, n_points) -> Tuple[List, List, float, float]
+│   │   ├── _calculate_fringe_spacing(x, intensities) -> float
+│   │   └── quantum_probability(position, n_qubits=8) -> float
+│   │
+│   └── class MachZehnderInterferometer
+│       ├── __init__()
+│       ├── set_phase(phi), get_phase() -> float
+│       ├── quantum_circuit() -> QuantumCircuit
+│       ├── get_state() -> Ket
+│       ├── output_probability(output_port=0) -> float
+│       ├── interference_fringe(phase_range, n_points) -> Tuple[List, List]
+│       └── visibility(phase_range, n_points) -> float
+│
+└── parties.py
+    │
+    ├── class Alice
+    │   ├── __init__(name="Alice")
+    │   ├── prepare(state) -> self
+    │   ├── prepare_random(n_qubits=1) -> Ket
+    │   ├── send() -> Ket
+    │   ├── measure(basis='z') -> int
+    │   └── encode_bit(bit) -> self
+    │
+    ├── class Bob
+    │   ├── __init__(name="Bob")
+    │   ├── receive(state) -> self
+    │   ├── measure(basis='z') -> int
+    │   └── get_bit() -> int
+    │
+    ├── class Charlie
+    │   ├── __init__(name="Charlie")
+    │   ├── receive(state) -> self
+    │   └── measure() -> int
+    │
+    ├── class BB84
+    │   ├── __init__(eavesdropping=False)
+    │   └── run(n_bits=100) -> str
+    │
+    ├── class SuperdenseCoding
+    │   ├── __init__()
+    │   └── run(bits: Tuple[int, int]) -> Tuple[int, int]
+    │
+    └── class QuantumTeleportation
+        ├── __init__()
+        └── run(state) -> Ket

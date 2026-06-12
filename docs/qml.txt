@@ -1,0 +1,132 @@
+qml/
+│
+├── qgan.py
+│   │
+│   ├── class QGANResult
+│   │   └── fields: generator_loss, discriminator_loss, fidelity_history, epoch_history, success, final_generator, final_discriminator
+│   │
+│   ├── class QuantumGenerator
+│   │   ├── __init__(n_qubits, n_latent, n_layers=2)
+│   │   ├── _init_params()
+│   │   ├── _encode_latent(circuit, z)
+│   │   ├── _variational_layer(circuit, params, start_idx)
+│   │   ├── generate(z) -> Ket
+│   │   ├── set_params(params)
+│   │   └── get_params() -> List[float]
+│   │
+│   ├── class QuantumDiscriminator
+│   │   ├── __init__(n_qubits, n_layers=2)
+│   │   ├── _init_params()
+│   │   ├── _discriminator_circuit() -> QuantumCircuit
+│   │   ├── discriminate(state) -> float
+│   │   ├── set_params(params)
+│   │   └── get_params() -> List[float]
+│   │
+│   ├── class ClassicalDiscriminator
+│   │   ├── __init__(input_dim, hidden_dims=[64,32])
+│   │   ├── _relu(x), _sigmoid(x)
+│   │   ├── forward(x) -> float
+│   │   └── discriminate(state) -> float
+│   │
+│   └── class QGAN
+│       ├── __init__(n_qubits, n_latent=2, generator_layers=2, discriminator_layers=2, discriminator_type='quantum')
+│       ├── _generator_loss(z) -> float
+│       ├── _discriminator_loss(real_states, z_list) -> float
+│       ├── _gradient(loss_fn, params, eps=1e-5) -> List[float]
+│       ├── train(target_states, epochs=50, batch_size=10, learning_rate=0.01, verbose=True) -> QGANResult
+│       └── generate(n_samples=1, latent_vectors=None) -> List[Ket]
+│
+├── qnn.py
+│   │
+│   ├── class QNNResult
+│   │   └── fields: final_loss, accuracy, epochs, params, predictions
+│   │
+│   ├── class QNNLayer
+│   │   ├── __init__(n_qubits, entangler='cnot')
+│   │   ├── apply(circuit, params, start_idx=0)
+│   │   └── __repr__
+│   │
+│   ├── class QNN
+│   │   ├── __init__(n_qubits, n_layers=3, entangler='cnot', measurement='z')
+│   │   ├── _init_params_random(seed=None)
+│   │   ├── set_params(params)
+│   │   ├── build_circuit(input_state=None) -> QuantumCircuit
+│   │   ├── forward(input_state=None) -> Ket
+│   │   ├── measure_expectation(input_state=None) -> float
+│   │   ├── predict(X, as_probability=True) -> List[float]
+│   │   ├── _encode_data(x) -> Ket
+│   │   ├── loss(X, y) -> float
+│   │   ├── accuracy(X, y) -> float
+│   │   ├── _parameter_shift_gradient(X, y, param_idx, epsilon=1e-5) -> float
+│   │   ├── train(X, y, epochs=100, learning_rate=0.1, verbose=True) -> QNNResult
+│   │   └── __repr__
+│   │
+│   ├── class QuantumClassifier(QNN) (alias)
+│   └── class VariationalQuantumCircuit(QNN) (alias)
+│
+├── qsvm.py
+│   │
+│   ├── class SVMResult
+│   │   └── fields: support_vectors, alphas, bias, n_support, accuracy
+│   │
+│   └── class QSVM
+│       ├── __init__(n_qubits=2, kernel_type='quantum', C=1.0, feature_map='zz')
+│       ├── _linear_kernel(x1, x2) -> float
+│       ├── _rbf_kernel(x1, x2, gamma=1.0) -> float
+│       ├── _quantum_kernel(x1, x2) -> float
+│       ├── _compute_kernel(X) -> List[List[float]]
+│       ├── _solve_svm(K, y) -> Tuple[List[float], float]
+│       ├── fit(X, y, max_iter=100) -> SVMResult
+│       ├── _predict_single(x) -> int
+│       ├── predict(X) -> List[int]
+│       ├── decision_function(X) -> List[float]
+│       └── score(X, y) -> float
+│
+├── quantum_kernel.py
+│   │
+│   ├── class KernelResult
+│   │   └── fields: value, fidelity, distance
+│   │
+│   ├── class QuantumKernel
+│   │   ├── __init__(n_qubits, feature_map='zz', n_layers=2)
+│   │   ├── _build_feature_map() -> Callable
+│   │   ├── _encode_data(x) -> QuantumCircuit
+│   │   ├── evaluate(x1, x2, shots=1024) -> float
+│   │   ├── kernel_matrix(X, shots=1024) -> List[List[float]]
+│   │   └── kernel_alignment(X, y, shots=1024) -> float
+│   │
+│   └── class QuantumKernelEstimator
+│       ├── __init__(n_qubits)
+│       └── swap_test(state1, state2, shots=1024) -> float
+│
+└── vqc.py
+    │
+    ├── class VQCResult
+    │   └── fields: optimal_params, optimal_cost, n_iterations, history, success
+    │
+    ├── class VariationalLayer
+    │   ├── __init__(n_qubits, entangler='cnot')
+    │   ├── apply(circuit, params, start_idx=0)
+    │   └── __repr__
+    │
+    ├── class VQC
+    │   ├── __init__(n_qubits, n_layers=3, entangler='cnot', measurement='z')
+    │   ├── _init_random(seed=None)
+    │   ├── set_params(params)
+    │   ├── build_circuit(input_state=None) -> QuantumCircuit
+    │   ├── get_state(input_state=None) -> Ket
+    │   ├── measure(input_state=None) -> float
+    │   ├── evaluate_cost(params=None, input_state=None) -> float
+    │   ├── parameter_shift_gradient(param_idx, input_state=None, epsilon=1e-5) -> float
+    │   ├── gradient(input_state=None) -> List[float]
+    │   ├── optimize(cost_function=None, n_iterations=100, learning_rate=0.1, input_state=None, verbose=True) -> VQCResult
+    │   └── __repr__
+    │
+    └── class HamiltonianVQE(VQC)
+        ├── __init__(n_qubits, hamiltonian, n_layers=3, entangler='cnot')
+        ├── evaluate_hamiltonian(params=None) -> float
+        ├── _expectation_z(state) -> float
+        ├── _expectation_x(state) -> float
+        ├── _expectation_y(state) -> float
+        ├── _expectation_pauli_string(state, pauli_string) -> float
+        └── run(n_iterations=100, learning_rate=0.1, verbose=True) -> VQCResult

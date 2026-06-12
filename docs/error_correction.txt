@@ -1,0 +1,34 @@
+error_correction/
+│
+├── __init__.py
+│   └── exports: CorrectionResult, BitFlipCode, PhaseFlipCode,
+│                ShorCode, SteaneCode, detect_error
+│
+└── codes.py
+    │
+    ├── class CorrectionResult
+    │   └── fields: corrected_state, syndrome, errors_detected,
+    │                errors_corrected, success
+    │
+    ├── class BitFlipCode
+    │   ├── __init__(n=3)
+    │   ├── encode(state) -> Ket
+    │   ├── decode(encoded) -> CorrectionResult
+    │   └── circuit_encode() -> QuantumCircuit
+    │
+    ├── class PhaseFlipCode
+    │   ├── __init__(n=3)
+    │   ├── encode(state) -> Ket
+    │   └── decode(encoded) -> CorrectionResult
+    │
+    ├── class ShorCode
+    │   ├── __init__()
+    │   ├── encode(state) -> Ket
+    │   └── decode(encoded) -> CorrectionResult
+    │
+    ├── class SteaneCode
+    │   ├── __init__()
+    │   ├── encode(state) -> Ket
+    │   └── decode(encoded) -> CorrectionResult
+    │
+    └── detect_error(circuit, syndrome_qubits) -> List[int]

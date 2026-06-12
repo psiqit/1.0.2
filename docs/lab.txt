@@ -1,0 +1,33 @@
+lab/
+│
+├── __init__.py
+│   └── exports: ExperimentStatus, ExperimentResult, Experiment,
+│                QuantumLab, PredefinedExperiments
+│
+└── virtual_lab.py
+    │
+    ├── class ExperimentStatus(Enum)
+    │   └── values: DRAFT, RUNNING, COMPLETED, FAILED
+    │
+    ├── class ExperimentResult
+    │   ├── fields: name, timestamp, n_qubits, shots, counts,
+    │   │          probabilities, final_state, success_rate,
+    │   │          execution_time, status
+    │   └── summary() -> str
+    │
+    ├── class Experiment
+    │   ├── __init__(name, n_qubits, gates=None, shots=1024, ...)
+    │   ├── add_gate(gate_name, *qubits, params=None)
+    │   └── clear_gates()
+    │
+    ├── class QuantumLab
+    │   ├── __init__()
+    │   ├── create_experiment(name, n_qubits) -> Experiment
+    │   ├── run_experiment(experiment, shots=None) -> ExperimentResult
+    │   ├── get_state_vector(experiment) -> Ket
+    │   ├── get_bloch_coordinates(experiment, qubit=0) -> Tuple[float,float,float]
+    │   └── list_experiments() -> List[Dict]
+    │
+    └── class PredefinedExperiments
+        ├── bell_state() -> Experiment
+        └── ghz_state(n=3) -> Experiment

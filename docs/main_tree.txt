@@ -1,0 +1,98 @@
+psiqit/
+│
+├── algorithms/
+│   ├── __init__.py
+│   ├── grover.py
+│   ├── deutsch_jozsa.py
+│   ├── bernstein_vazirani.py
+│   ├── simon.py
+│   ├── qft.py
+│   ├── qpe.py
+│   └── shor.py
+│
+├── circuits/
+│   ├── __init__.py
+│   ├── qubit.py
+│   ├── register.py
+│   ├── circuit.py
+│   └── optical_circuits.py
+│
+├── dynamics/
+│   ├── __init__.py
+│   ├── schrodinger.py
+│   ├── adiabatic.py
+│   ├── heisenberg.py
+│   ├── interaction.py
+│   ├── lindblad.py
+│   ├── monte_carlo.py
+│   └── time_evolution.py
+│
+├── error_correction/
+│   ├── __init__.py
+│   └── codes.py
+│
+├── info/
+│   ├── __init__.py
+│   ├── entropy.py
+│   └── entanglement.py
+│
+├── interface/
+│   ├── __init__.py
+│   ├── cli.py
+│   ├── latex.py
+│   └── notebook.py
+│
+├── lab/
+│   ├── __init__.py
+│   └── virtual_lab.py
+│
+├── math/
+│   ├── __init__.py
+│   ├── qalgebra.py
+│   ├── calculus.py
+│   ├── ode_solver.py
+│   ├── pde_solver.py
+│   └── symbolic.py
+│
+├── noise_canceling/
+│   ├── __init__.py
+│   └── noise_models.py
+│
+├── qml/
+│   ├── __init__.py
+│   ├── qgan.py
+│   ├── qnn.py
+│   ├── qsvm.py
+│   ├── quantum_kernel.py
+│   └── vqc.py
+│
+├── quantum/
+│   ├── __init__.py
+│   ├── state.py
+│   ├── operator.py
+│   ├── measurement.py
+│   ├── interference.py
+│   └── parties.py
+│
+├── utils/
+│   ├── __init__.py
+│   ├── conversion.py
+│   ├── polarization.py
+│   ├── random.py
+│   └── validation.py
+│
+├── variational/
+│   ├── __init__.py
+│   ├── vqe.py
+│   ├── qaoa.py
+│   ├── variational_advanced.py
+│   └── variational_methods.py
+│
+└── visualization/
+    ├── __init__.py
+    ├── bloch.py
+    ├── circuit_drawer.py
+    ├── wigner.py
+    ├── husimi.py
+    ├── animation.py
+    └── symbolic_plot.py

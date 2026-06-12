@@ -1,0 +1,104 @@
+variational/
+│
+├── __init__.py
+│   └── exports: VQEResult, VQE, QAOResult, QAOA, maxcut_hamiltonian,
+│                qubo_to_hamiltonian, MultiStateResult, SSVQE, ADAPTVQE,
+│                VariationalQuantumDeflation, VariationalResult,
+│                RayleighRitz, TDVP, VariationalMonteCarlo, HartreeFock
+│
+├── vqe.py
+│   │
+│   ├── class VQEResult
+│   │   └── fields: optimal_params, optimal_energy, n_iterations, history, success
+│   │
+│   └── class VQE
+│       ├── __init__(n_qubits, hamiltonian, n_layers=2, optimizer='gradient')
+│       ├── _init_random(seed=None)
+│       ├── build_circuit(params=None) -> QuantumCircuit
+│       ├── evaluate_energy(params=None) -> float
+│       ├── _expectation_pauli(state, pauli_str) -> float
+│       ├── _gradient(params, eps=1e-5) -> List[float]
+│       └── run(n_iterations=100, learning_rate=0.1, verbose=True) -> VQEResult
+│
+├── qaoa.py
+│   │
+│   ├── class QAOResult
+│   │   └── fields: optimal_params, optimal_energy, n_iterations, history, success
+│   │
+│   ├── class QAOA
+│   │   ├── __init__(n_qubits, hamiltonian, p=2, optimizer='gradient')
+│   │   ├── _init_random(seed=None)
+│   │   ├── _apply_cost_layer(circuit, gamma)
+│   │   ├── _apply_mixer_layer(circuit, beta)
+│   │   ├── _apply_pauli_string(circuit, pauli_str, angle)
+│   │   ├── build_circuit(params=None) -> QuantumCircuit
+│   │   ├── evaluate_energy(params=None) -> float
+│   │   ├── _expectation_pauli(state, pauli_str) -> float
+│   │   ├── _gradient(params, eps=1e-5) -> List[float]
+│   │   └── run(n_iterations=100, learning_rate=0.1, verbose=True) -> QAOResult
+│   │
+│   ├── maxcut_hamiltonian(edges) -> Dict[str, float]
+│   └── qubo_to_hamiltonian(qubo, n_qubits) -> Dict[str, float]
+│
+├── variational_advanced.py
+│   │
+│   ├── class MultiStateResult
+│   │   └── fields: energies, states, success, iterations
+│   │
+│   ├── class SSVQE (Subspace-Search VQE)
+│   │   ├── __init__(n_qubits, hamiltonian, n_states=3, n_layers=2)
+│   │   ├── _init_random(seed=None)
+│   │   ├── build_circuit(params=None) -> QuantumCircuit
+│   │   ├── evaluate_state_energy(state_idx, params) -> float
+│   │   ├── evaluate_cost(params) -> float
+│   │   ├── _gradient(params, eps=1e-5) -> List[float]
+│   │   └── run(n_iterations=100, learning_rate=0.1, verbose=True) -> MultiStateResult
+│   │
+│   ├── class ADAPTVQE
+│   │   ├── __init__(n_qubits, hamiltonian, operator_pool=None)
+│   │   ├── _create_default_pool() -> List[Operator]
+│   │   ├── _apply_operator(circuit, op, param)
+│   │   ├── _evaluate_energy_with_ops(params) -> float
+│   │   ├── _gradient_wrt_operator(params, op_idx) -> float
+│   │   └── run(max_iterations=10, grad_threshold=0.01, verbose=True) -> VQEResult
+│   │
+│   └── class VariationalQuantumDeflation
+│       ├── __init__(n_qubits, hamiltonian, n_layers=2)
+│       ├── _overlap_penalty(params, state_idx) -> float
+│       ├── _cost_function(params, penalty_weight=1.0) -> float
+│       └── find_excited_state(penalty_weight=1.0, n_iterations=100) -> VQEResult
+│
+└── variational_methods.py
+    │
+    ├── class VariationalResult
+    │   └── fields: optimal_params, optimal_value, iterations, history, success, method
+    │
+    ├── class RayleighRitz
+    │   ├── __init__(matrix, ansatz, n_params=1)
+    │   ├── expectation(params) -> float
+    │   ├── _gradient(params, eps=1e-5) -> List[float]
+    │   └── optimize(n_iterations=100, learning_rate=0.1, verbose=False) -> VariationalResult
+    │
+    ├── class TDVP (Time-Dependent Variational Principle)
+    │   ├── __init__(hamiltonian, ansatz, n_params, mass=1.0, hbar=1.0)
+    │   ├── _metric_tensor(params, eps=1e-5) -> List[List[float]]
+    │   ├── _energy_gradient(params, eps=1e-5) -> List[float]
+    │   └── evolve(params0, t_max=10.0, dt=0.01, verbose=False) -> Tuple[List[List[float]], List[float]]
+    │
+    ├── class VariationalMonteCarlo
+    │   ├── __init__(wavefunction, potential, n_params, kinetic_energy=None, mass=1.0, hbar=1.0)
+    │   ├── _default_kinetic(x, psi, dpsi, d2psi) -> float
+    │   ├── _local_energy(x, params) -> float
+    │   ├── _energy(params, samples) -> float
+    │   ├── _generate_samples(params, n_samples) -> List[float]
+    │   ├── _gradient(params, samples, eps=1e-5) -> List[float]
+    │   └── optimize(n_samples=5000, n_iterations=50, learning_rate=0.01, verbose=False) -> VariationalResult
+    │
+    └── class HartreeFock
+        ├── __init__(n_electrons, n_orbitals, one_electron_integrals=None, two_electron_integrals=None)
+        ├── _default_one_electron() -> List[List[float]]
+        ├── _default_two_electron() -> List[List[List[List[float]]]]
+        ├── _density(C) -> List[List[float]]
+        ├── _fock(P) -> List[List[float]]
+        ├── _diagonalize(F) -> Tuple[List[float], List[List[float]]]
+        └── solve(max_iter=50, tol=1e-8, verbose=False) -> VariationalResult

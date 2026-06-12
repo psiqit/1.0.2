@@ -1,0 +1,71 @@
+visualization/
+│
+├── __init__.py
+│   └── exports: state_to_bloch, bloch_sphere, plot_multiple_states, animate_bloch,
+│                draw_circuit, circuit_to_text, circuit_statistics,
+│                wigner_function, plot_wigner, plot_wigner_3d, wigner_negativity,
+│                husimi_function_gaussian, plot_husimi,
+│                animate_wavefunction, animate_bloch_sphere,
+│                render_equation, schrodinger_equation, dirac_notation,
+│                pauli_matrices, bloch_sphere_equation, heisenberg_uncertainty,
+│                commutation_relation, maxwell_equations
+│
+├── bloch.py
+│   │
+│   ├── تبدیلات مختصات:
+│   │   ├── state_to_bloch(state) -> Tuple[float, float, float]
+│   │   ├── bloch_to_state(x, y, z) -> Ket
+│   │   ├── spherical_to_bloch(theta, phi) -> Tuple[float, float, float]
+│   │   └── bloch_to_spherical(x, y, z) -> Tuple[float, float]
+│   │
+│   ├── توابع ترسیم:
+│   │   ├── bloch_sphere(state=None, points=None, title="Bloch Sphere", ...)
+│   │   ├── plot_multiple_states(states, colors=None, title="...", ...)
+│   │   └── animate_bloch(states, interval=200, filename=None)
+│   │
+│   └── توابع کمکی: _has_matplotlib()
+│
+├── circuit_drawer.py
+│   │
+│   ├── draw_circuit(circuit, style='ascii') -> str
+│   ├── _draw_ascii(circuit) -> str
+│   ├── _draw_unicode(circuit) -> str
+│   ├── circuit_to_text(circuit, show_wires=True) -> str
+│   └── circuit_statistics(circuit) -> Dict
+│
+├── wigner.py
+│   │
+│   ├── محاسبه تابع ویگنر:
+│   │   ├── wigner_function(state, x_range, p_range, n_points, hbar=1.0) -> Tuple[ndarray, ndarray, ndarray]
+│   │   ├── wigner_function_analytic(psi_func, x_range, p_range, n_points, hbar=1.0) -> Tuple[...]
+│   │   ├── wigner_function_gaussian(x0=0.0, p0=0.0, sigma=1.0, ...) -> Tuple[...]
+│   │   ├── wigner_function_coherent_state(alpha, x_range, p_range, n_points) -> Tuple[...]
+│   │   └── wigner_function_squeezed_state(r, phi=0.0, x_range, p_range, n_points) -> Tuple[...]
+│   │
+│   ├── توابع ترسیم:
+│   │   ├── plot_wigner(W, x, p, title="Wigner Function", cmap='RdBu', save_path=None)
+│   │   └── plot_wigner_3d(W, x, p, title="Wigner Function", save_path=None)
+│   │
+│   └── wigner_negativity(W) -> float
+│
+├── husimi.py
+│   │
+│   ├── husimi_function_gaussian(x0=0.0, p0=0.0, sigma=1.0, ...) -> Tuple[ndarray, ndarray, ndarray]
+│   ├── husimi_function_coherent_state(alpha, x_range, p_range, n_points) -> Tuple[...]
+│   └── plot_husimi(Q, x, p, title="Husimi Q-Function", cmap='hot', save_path=None)
+│
+├── animation.py
+│   │
+│   ├── animate_wavefunction(psi_func, x_range, t_range, n_x=200, n_frames=100, interval=50, save_path=None)
+│   └── animate_bloch_sphere(states, interval=200, save_path=None)
+│
+└── symbolic_plot.py
+    │
+    ├── render_equation(latex, output_file=None, fontsize=16) -> str
+    ├── schrodinger_equation(time_dependent=True) -> str
+    ├── dirac_notation() -> Dict[str, str]
+    ├── pauli_matrices() -> Dict[str, str]
+    ├── bloch_sphere_equation(theta=None, phi=None) -> str
+    ├── heisenberg_uncertainty() -> str
+    ├── commutation_relation() -> str
+    └── maxwell_equations() -> List[str]

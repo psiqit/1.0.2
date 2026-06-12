@@ -1,0 +1,72 @@
+math/
+│
+├── __init__.py
+│   └── exports: (همه توابع از ۵ فایل زیر)
+│
+├── qalgebra.py
+│   │
+│   ├── نوع‌ها: Vector, Matrix
+│   │
+│   ├── ثابت‌ها: PI, TAU, EULER, INF, SQRT2, SQRT3, PHI, ...
+│   ├── ثابت‌های فیزیکی: HBAR, H_PLANCK, C, E_CHARGE, M_ELECTRON, K_B, ...
+│   │
+│   ├── عملیات اعداد مختلط: is_real, phase, magnitude, cis, from_polar, to_polar
+│   │
+│   ├── عملیات ماتریسی: eye, zeros, mul, add, transpose, dagger, trace, kron
+│   ├── عملیات برداری: inner, outer, norm, normalize
+│   │
+│   ├── توابع پیشرفته: determinant, inverse, eigenvalues, eigenvectors, expm, sqrt_matrix
+│   │
+│   ├── توابع اعتبارسنجی: is_unitary, is_hermitian, is_positive
+│   │
+│   ├── آمار و احتمال: is_distribution, normalize_probs, sample, entropy, born_rule, expectation, variance
+│   │
+│   └── ابزارها: commutator, anticommutator, dimension, hilbert_space, display
+│       └── تبدیل واحد: eV_to_J, J_to_eV, nm_to_m, m_to_nm, energy_to_frequency
+│
+├── calculus.py
+│   │
+│   ├── مشتقات: derivative, partial_derivative, gradient, jacobian, hessian, laplacian
+│   ├── انتگرال‌ها: integral, integral_2d, integral_3d, indefinite_integral
+│   ├── مشتقات توابع کوانتومی: derivative_gaussian, derivative_sine_wave, derivative_cosine_wave, derivative_plane_wave
+│   └── ابزارها: taylor_series, diff_operator
+│
+├── ode_solver.py
+│   │
+│   ├── class ODEResult (fields: x, y, y_list, method, n_steps, success)
+│   │
+│   ├── روش اویلر: euler (تک معادله), euler_system (سیستم)
+│   ├── رانگ-کوتا: rk2, rk4, rk4_system
+│   ├── حلگر عمومی: solve_ode
+│   ├── تطبیقی: adaptive_rk45
+│   └── شرودینگر ۱بعدی عددی: schrodinger_1d_numerical
+│
+├── pde_solver.py
+│   │
+│   ├── class PDEResult (fields: x, t, u, method, success)
+│   │
+│   ├── solve_heat_equation (معادله گرما)
+│   ├── solve_wave_equation (معادله موج)
+│   ├── solve_schrodinger_1d (معادله شرودینگر وابسته به زمان)
+│   └── diffusion_equation_implicit (معادله نفوذ)
+│
+└── symbolic.py
+    │
+    ├── SYMPY_AVAILABLE (bool)
+    │
+    ├── عملیات پایه: create_symbols, create_matrix, solve_equation, solve_linear_system
+    ├── دیفرانسیل و انتگرال: differentiate, integrate_expression, simplify_expression, expand_expression
+    │
+    ├── عملیات کوانتومی:
+    │   ├── pauli_algebra() -> dict (sigma_x, sigma_y, sigma_z, I)
+    │   ├── commutator_symbolic(A, B), anticommutator_symbolic(A, B)
+    │   ├── commutator_algebra_symbolic()
+    │   ├── hamiltonian_symbolic(terms)
+    │   ├── eigenvalues_symbolic(matrix), eigenvectors_symbolic(matrix)
+    │
+    ├── معادله شرودینگر:
+    │   ├── schrodinger_1d_symbolic(potential)
+    │   ├── infinite_well_states(n, L)
+    │   └── harmonic_oscillator_states(n, mass, omega)
+    │
+    └── exports sympy: Symbol, symbols, Matrix, Function, Eq, I, pi, E
