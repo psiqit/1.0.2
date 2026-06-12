@@ -1,0 +1,17 @@
+numpy>=1.21.0
+scipy>=1.7.0
+matplotlib>=3.4.0
+sympy>=1.9.0
+
+[full]
+matplotlib>=3.4.0
+scikit-learn>=1.0.0
+jupyter>=1.0.0
+sympy>=1.9.0
+
+[ml]
+scikit-learn>=1.0.0
+jupyter>=1.0.0
+
+[viz]
+matplotlib>=3.4.0
