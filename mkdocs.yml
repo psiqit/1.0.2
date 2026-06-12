@@ -1,6 +1,7 @@
 site_name: PSIQIT - Quantum Information Toolkit
 site_description: Comprehensive Python library for quantum computing
 site_author: PSIQIT Contributors
+site_url: https://psiqit.github.io/1.0.2/
 
 theme:
   name: material
@@ -25,11 +26,12 @@ theme:
     - content.code.copy
 
 markdown_extensions:
-  - pymdownx.highlight
+  - pymdownx.highlight:
+      anchor_linenums: true
   - pymdownx.superfences
   - pymdownx.inlinehilite
   - admonition
-  - codehilite
+  - pymdownx.snippets
   - toc:
       permalink: true
   - tables
@@ -37,6 +39,10 @@ markdown_extensions:
 
 plugins:
   - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [.]
 
 nav:
   - Home: index.md
@@ -50,12 +56,12 @@ nav:
     - Algorithms: api/algorithms.md
     - Circuits: api/circuits.md
     - Dynamics: api/dynamics.md
-    - Error Correction: api/error_correction.md     
+    - Error Correction: api/error_correction.md
     - Information Theory: api/info.md
-    - Interface: api/interface.md                   
-    - Virtual Lab: api/lab.md                      
+    - Interface: api/interface.md
+    - Virtual Lab: api/lab.md
     - Mathematics: api/math.md
-    - Noise Canceling: api/noise_canceling.md        
+    - Noise Canceling: api/noise_canceling.md
     - Quantum ML: api/qml.md
     - Quantum Foundations: api/quantum.md
     - Utilities: api/utils.md
@@ -78,3 +84,10 @@ nav:
   - Contributing: contributing.md
   - Changelog: changelog.md
   - License: license.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/psiqit/1.0.2
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/psiqit/
